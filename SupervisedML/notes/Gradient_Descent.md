@@ -23,20 +23,6 @@ To do this automatically, we use gradient descent.
 - Keep changing/updating *parameters* to reduce the *cost function*.
 - Stop when we settle at or near a minimum.
 
-## Algorithm
-
-To update our params, we can do the following:
-
-- $p=p-\alpha \frac{d}{dp} J(p,b)$
-
-Where:
-
-- $p$: parameters 
-- $\alpha$: learning rate
-- $\frac{d}{dp} J(p,b)$: partial derivative of cost function (gradient)
-
-Remember, we do this for each parameter simultaneously.
-
 ## Learning Rate
 
 > Learning Rate: Parameter that determines step size on each update to parameters using the gradient
@@ -52,17 +38,17 @@ Some things to consider:
   - If graph is flaky or increasing, alpha might be too big (or bug in code).
 - Some good values to try are: $[..., 0.001, 0.01, 0.1, 1, ...]$
 
+To update our params, we can do the following:
 
-## Cost Functions 
+- $p=p-\alpha \frac{d}{dp} J(p,b)$
 
-> Cost function: Function that measures how well a model fits training data
+Where:
 
-Some possible cost functions are:
+- $p$: parameters 
+- $\alpha$: learning rate
+- $\frac{d}{dp} J(p,b)$: partial derivative of cost function (gradient)
 
-### Mean Squared Error (MSE)
-
-#### Formula
-$J(\vec{w}, b) = \frac{1}{2m} \sum_{i=1}^{m} (\hat{y}^{i} - y^{i})^2$
+Remember, we do this for each parameter simultaneously.
 
 ## Types of Gradient Descent
 
@@ -71,6 +57,10 @@ Some types of gradient descent are:
 - "Batch" gradient descent: Each step of gradient descent uses all the training examples
 - "Mini-batch" gradient descent
 - Stochastic gradient descent
+
+## Cost Functions 
+
+> Cost function: Function that measures how well a model fits training data
 
 ## Feature Scaling
 
@@ -90,3 +80,35 @@ To do it we can:
 ## Feature Engineering
 
 > Feature Engineering: Using intuition to design new features by transforming or combining original features.
+
+## Overfitting
+
+> Overfitting: Model that fits training data extremely well, but does not seem to generalize. It has high variance
+
+When overfitting happens, a model tried really hard to fit perfectly to train data, but this makes it hard to generalize for new examples. We say it has high variance as a slight different train data can give us a really different model.
+
+Some ways yo address overfitting:
+- Collect more training data
+- Select features to include/exclude
+- Regularization
+
+### Regularization 
+
+> Regularization: Make parameter values small to reduce overfitting
+
+To implement regularization, we modify the cost function, adding a multiplier to the terms we want to minimize (usually we can penalize all if we don't have more information). For example, if we have:
+
+- Cost = $J_{\vec{w}, b}(\vec{x})$
+
+We can penalize term $w_{(i)}$ with a new cost function:
+- Cost = $J_{\vec{w}, b}(\vec{x}) + \frac{\lambda}{2m}\sum_{j=1}^{n}w_{j}^{2}$
+
+This balances things out. Minimize cost while keeping parameters small (tending to reduce overfitting).
+
+- $\lambda$ balances both goals
+  - $\lambda = 0$ ignores the regularization term (overfits)
+  - $\lambda = 10^{10}$ all parameters will be close to 0 (underfits).
+
+> Note: b is usually not penalized for being large.
+
+
