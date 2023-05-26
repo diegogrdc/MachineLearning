@@ -1,0 +1,82 @@
+# ML Development
+
+## Iterative ML loop
+
+1. Choose architecture (model, data, etc)
+2. Train Model
+3. Diagnostics (bias, variance, error analysis)
+4. Repeat 1
+
+## Full Cycle of ML Project
+- Scope Project 
+  - Define Project
+- Collect Data
+  - Define and collect data
+- Train Model
+  - Train, error, analysis & iterative improvement
+- Deploy in Production
+  - Deploy, monitor, maintain system
+
+
+## Adding data
+
+If needed, we can add data of everything, or add data of specific types where error analysis found the model could use some help. However, we can also do data augmentation, or data synthesis. 
+
+This is helpful as lately algorithms have been getting really powerful, and now the focus has shifted a bit into improving the data instead of the models. 
+
+### Data Augmentation
+
+> Augmentation: modifying an existing example to create a new example
+
+We can do this by distortions, like:
+
+- On letter recognition, we can rotate, mirror or scale the image (if by doing so it maintains its label)
+- On speech recognition, we can add background noise like crowds or car engine, or bad cell phone collection. 
+
+The distortions should be representative of type of distortions present in the dataset. It is not helpful to just add random noise
+
+### Data Synthesis
+
+> Synthesis: Using artificial data inputs to create new examples.
+
+
+- In text recognition in images, instead of using real text on images, we can generate text with modifications in the computer, and use them. 
+
+This has been used a lot for computer vision
+
+## Transfer Learning
+
+> Transfer Learning: Use data from a different task to help in your application
+
+We use transfer learning when we have a small dataset for our task, but there are similar datasets that are big enough to help us. The data we have might not be enough to get a good model, but using the other dataset, we can achieve really good results.
+
+It has two main steps:
+
+### Supervised pre-training
+
+On this step, we want to get a network with trained parameters. We do this using another network, with inputs of the same type (e.g. audio, images, text).
+
+To do this, we have two options:
+- Download NN parameters pre-trained on a large dataset with same input type as your application
+- Create and train a NN on a large dataset with the same input type as your application
+
+
+### Fine Tuning
+
+Replace last layer to have desired outputs, This will make us have no parameters set for the last layer. To get them, we can further train the network with the small dataset. The imported parameters can also be changed, or kept as imported. 
+
+### Intuition
+
+Using images as an example, first few layer are more generic, usually getting patters, like edges, curves, shapes. Even in different data, like cats/dogs and then handwritten digits, the first layers can generically detect the desired patterns which will make it easier for the last couple of layers. This is why transfer learning can work. 
+
+## Skewed Datasets
+
+We say a dataset is skewed when the possible outputs have really high percentage difference in the labels. For example, having an unlikely disease (less than 1%), a model always printing *0* (no disease) could achieve a 99% accuracy, which is not really correct. To help get better metrics, as accuracy and error might not be that helpful, we use precision and recall.
+
+> Precision: Out of all predicted positives, how many are truly positive? ( True Positives / (True Positives + False Positives) )
+
+> Recall: Out of all true positives, how many were correctly predicted? ( True Positives / (True Positives + False Negatives) )
+
+There is a tradeoff between them, as being really precise usually makes the model have lower recall, and vice versa. To automatically tradeoff precision and recall we can use the F1 Score. 
+
+> F1 Score: Helps measuring the tradeoff between precision and recall. ( 2 * PR / (P + R) )

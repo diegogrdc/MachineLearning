@@ -23,7 +23,7 @@ Y = np.array(outputs)
 
 # Create model with defined layers
 model = Sequential([
-    Dense(units=25, activation='relu')v,
+    Dense(units=25, activation='relu'),
     Dense(units=15, activation='relu'),
     Dense(units=1, activation='sigmoid')])
 
@@ -40,6 +40,29 @@ model.fit(X, Y, epochs=100)
 a_new = model.predict(x_new)
 ```
 
+### More accuracy
+
+Some calculations in tensorflow can be improved to be more precise by:
+```
+...
+Dense(units=N, activation='linear')
+...
+model.compile(loss=SparseCategoricalCrossentropy(from_logits=True),
+optimizer=tf.keras.optimizers.Adam(learning_rate=0.001))
+...
+model.fit(X, Y, epochs=100)
+...
+logits = model(X)
+f_x = tf.nn.softmax(logits)
+```
+
+### Regularization
+
+To apply regularization on Tensorflow:
+
+```
+Dense(units=25, activation='relu', kernel_regularizer=L2(lambda))
+```
 
 ### Loss functions
 
