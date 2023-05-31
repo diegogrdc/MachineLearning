@@ -77,3 +77,4 @@ As we retrieve more movies, we will have better performance in our algorithm, bu
 ### Cache
 
 If we calculate $v_m$ constantly, an optimization would be tto cache the vector and use it when needed.
+
